@@ -25,7 +25,7 @@ class Pool(object):
     count_overflow_discard = 0
     count_served_from_pool = 0
 
-    def __init__(self, pool_size_limit=100, max_age=3600, max_idle_time=300):
+    def __init__(self, pool_size_limit=10, max_age=3600, max_idle_time=300):
         # create the pool and the pool lock
         self.__pool = []
         self.__pool_lock = threading.Lock()
@@ -84,7 +84,7 @@ class Pool(object):
         #   the age of the available resources
         now_time = now()
         min_fresh_time = \
-                now_time - self.max_idle_time if self.max_idle_time
+                now_time - self.max_idle_time if self.max_idle_time \
                 else 0
         min_created_time = \
                 now_time - self.max_age if self.max_age \
